@@ -7,6 +7,10 @@ const Filter = () => {
   const searchParams = useSearchParams()
   const { replace } = useRouter()
 
+  // This function sets params in url
+  // E.g. => http://localhost:3000/list?cat=all-products&type=physical&min=123&max=444
+  // when change event of dropdown or enter price ,that params will be  part of url
+  // when change sort it works as well by adding sort=asc+price
   const handleFilterChange = (
     e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
   ) => {
@@ -68,6 +72,7 @@ const Filter = () => {
           className="py-2 px-4 rounded-2xl text-xs font-medium bg-white ring-1 ring-gray-400"
           onChange={handleFilterChange}
         >
+          {/* SORTING */}
           <option>Sort By</option>
           <option value="asc price">Price (low to high)</option>
           <option value="desc price">Price (high to low)</option>
