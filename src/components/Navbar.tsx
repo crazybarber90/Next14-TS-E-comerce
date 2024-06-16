@@ -2,10 +2,12 @@ import Link from 'next/link'
 import React from 'react'
 import Menu from './Menu'
 import Image from 'next/image'
-import NavIcons from './NavIcons'
 import SearchBar from './SearchBar'
+import dynamic from 'next/dynamic'
+// import NavIcons from './NavIcons'
 
 const Navbar = () => {
+  const NavIcons = dynamic(() => import('./NavIcons'), { ssr: false })
   return (
     <div className="h-20 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 relative">
       {/* MOBILE */}
