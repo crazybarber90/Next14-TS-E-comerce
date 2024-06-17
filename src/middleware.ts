@@ -14,6 +14,9 @@ export const middleware = async (request: NextRequest) => {
   })
 
   // CREATING COOKIE FOR VISITORS TO BE ABLE TO ADD PRODUCTS IN CART !
+  // when visitor came to shop, he will get visitor refresh token
+  // if he login, his token will be replaced with realone
+  // if he logout , his token will be again visitors token
   const tokens = await wixClient.auth.generateVisitorTokens()
   res.cookies.set('refreshToken', JSON.stringify(tokens.refreshToken), {
     maxAge: 60 * 60 * 24 * 30,

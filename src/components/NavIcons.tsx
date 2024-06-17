@@ -2,10 +2,11 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CartModal from './CartModal'
 import { useWixClient } from '@/hooks/useWixClient'
 import Cookies from 'js-cookie'
+import { useCartStore } from '@/hooks/useCartStore'
 
 const NavIcons = () => {
   const [isProfileOpen, setIsProfileOpen] = useState<Boolean>(false)
@@ -38,7 +39,7 @@ const NavIcons = () => {
   //   )
   // }
 
-  // THIS IS MY FUNCTON WITH MY THIGS
+  // THIS IS MY FUNCTON WITH MY THINGS
   // THIS FUNCTION GIVE US LOGIN WITH GOOGE/ FACEBOOK
   // const login = async () => {
   //   const loginRequestData = wixClient.auth.generateOAuthData(
@@ -61,6 +62,12 @@ const NavIcons = () => {
     setIsProfileOpen(false)
     router.push(logoutUrl)
   }
+
+  const { cart, counter, getCart } = useCartStore()
+
+  useEffect(() => {
+    getCart(wixClient)
+  }, [wixClient, getCart])
 
   return (
     <div className="flex items-center gap-4 xl:gap-6 relative">
@@ -95,7 +102,7 @@ const NavIcons = () => {
           // onClick={() => setIsCartOpen((prev) => !prev)}
         />
         <div className="absolute -top-4 -right-4 w-6 h-6 bg-pinkara rounded-full text-white text-sm flex items-center justify-center">
-          2
+          {counter}
         </div>
       </div>
       {isCartOpen && (

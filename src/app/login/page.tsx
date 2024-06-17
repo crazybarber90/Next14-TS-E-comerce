@@ -58,10 +58,9 @@ const LoginPage = () => {
     setError('')
 
     try {
-      console.log(error)
       //since we are using different responce for each mode we will make it dynamically
       let response
-      // SWITCH CASE COS WE HAVE 4modes FOR ERRORS
+      // SWITCH CASE COS WE HAVE 4modes
       switch (mode) {
         case MODE.LOGIN:
           response = await wixClient.auth.login({
@@ -96,7 +95,7 @@ const LoginPage = () => {
           break
       }
 
-      // ----------- SWITCH CASES FOR RESPONSE
+      // ----------- SWITCH CASES FOR RESPONSE AFTER LOGIN
       switch (response?.loginState) {
         // SUCCESS LOGIN
         case LoginState.SUCCESS:
@@ -111,6 +110,7 @@ const LoginPage = () => {
           router.push('/')
           break
 
+        // FAIL LOGIN
         case LoginState.FAILURE:
           if (
             response.errorCode === 'invalidEmail' ||
@@ -125,6 +125,7 @@ const LoginPage = () => {
             setError('Something went wrong')
           }
 
+        // W8ing FOR EMAIL VERIFICATION
         case LoginState.EMAIL_VERIFICATION_REQUIRED:
           setMode(MODE.EMAIL_VERIFICATION)
         case LoginState.OWNER_APPROVAL_REQUIRED:
